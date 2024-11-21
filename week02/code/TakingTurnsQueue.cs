@@ -23,8 +23,7 @@ public class TakingTurnsQueue
     }
 
     /// <summary>
-    /// Get the next person in the queue. A person is dequeued, and if they still have turns left, they are re-enqueued.
-    /// If the person has infinite turns (turns <= 0), they will be re-enqueued without decrementing their turns.
+    /// Get the next person in the queue. A person is dequeued, and if they still have turns left or have infinite turns, they are re-enqueued.
     /// </summary>
     public Person GetNextPerson()
     {
@@ -45,9 +44,9 @@ public class TakingTurnsQueue
                 _people.Enqueue(person); // Re-enqueue if they still have turns left
             }
         }
-        else
+        else if (person.Turns <= 0)
         {
-            // Re-enqueue players with infinite turns without changing their turn count
+            // Infinite turns: Always re-enqueue
             _people.Enqueue(person);
         }
 
